@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<meta http-equiv='cache-control' content='no-cache'>
+	<meta http-equiv='expires' content='0'>
+	<meta http-equiv='pragma' content='no-cache'>
+	<title>Main Page</title>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" 
+	integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" 
+	crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark">
+        <ul class="navbar-nav">
+            <li class="navbar-nav">
+                <a class="nav-link" href="/main">Earnings</a>
+            </li>
+            <li class="navbar-nav">
+                <a class="nav-link" href="/insert">Spendings</a>
+            </li>
+            <li class="navbar-nav">
+                <a class="nav-link" href="/graphics">Investiments</a>
+            </li>
+            <li class="navbar-nav">
+                <a class="nav-link" href="/graphics">New</a>
+            </li>
+            <li class="navbar-nav">
+                <a class="nav-link" href="/graphics">Statistics</a>
+            </li>
+        </ul>
+    </nav>
+    <br>
+    <div class='container'>
+        <h2>Earnings</h2>
+        <form action="POST" name="earnings_query" class="ml-3">
+        <div class="form-group">
+            <div class='row'>
+                <input type="text" class='form-control col-md-5' name='query_earnings' placeholder="Type here your query">
+                <select class="form-control col-md-2" name="filed" >
+                    <option value="year">Year</option>
+                    <option value="month">Month</option>
+                    <option value="description">Description</option>
+                    <option value="value">Value</option>
+                </select>
+                <button type="submit" class="btn btn-success">Query</button>
+            </div>
+        </div>
+        </form>
+    </div>
+    <div style="overflow: scroll; height: 310px; width: 100%" align="center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><a href="/ordination/id/{{order}}">ID</a></th>
+                    <th><a href="/ordination/year/{{order}}">Year</a></th>
+                    <th><a href="/ordination/month/{{order}}">Month</a></th>
+                    <th><a href="/ordination/day/{{order}}">Day</a></th>
+                    <th><a href="/ordination/description/{{order}}">Description</a></th>
+                    <th><a href="/ordination/value/{{order}}">Value</a></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for earning in earnings %}
+
+                <tr>
+                    <td nowrap="true">
+                        <a href="/selection/{{earning.id}}">{{earning.id}}</a>
+                    </td>
+                    <td nowrap="true" style="background-color: rgb(188, 238, 188);">{{earning.year}}</td>
+                    <td nowrap="true" style="background-color: rgb(188, 238, 188);">{{earning.month}}</td>
+                    <td nowrap="true" style="background-color: rgb(188, 238, 188);">{{earning.day}}</td>
+                    <td nowrap="true" style="background-color: rgb(188, 238, 188);">{{earning.description}}</td>
+                    <td nowrap="true" style="background-color: rgb(188, 238, 188);">{{earning.value}}</td>
+                    <td>
+                        <a href="/edition/{{earning.id}}" class="btn btn-primary" role="button">Edit</a>
+                        <a href="/deletion/{{earning.id}}" class="btn btn-danger" role="button">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>    
+        </table>
+    </div>
+    <a href="#" style="float: right;" onclick="relatorio()">Print Report</a>
+</body>
+</html>
